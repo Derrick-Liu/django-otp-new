@@ -146,15 +146,15 @@ class TOTP(object):
     def token(self):
         """ The computed TOTP token. """
         return hotp(self.key, self.t(), digits=self.digits)
-		
-	def tolerant_token(self, tolerance):
+
+    def tolerant_token(self, tolerance):
         """ Generate token list within tolerance """
         token_list = []
         drift_orig = self.drift
         for offset in range(-tolerance, tolerance + 1):
             self.drift = drift_orig + offset
             token_list.append(self.token())
-        self.drift = drift_orig
+            self.drift = drift_orig
         return token_list
 
     def t(self):

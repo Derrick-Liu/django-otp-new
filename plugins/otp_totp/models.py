@@ -87,8 +87,8 @@ class TOTPDevice(Device):
         The secret key as a binary string.
         """
         return unhexlify(self.key.encode())
-		
-	def get_token(self):
+
+    def get_token(self):
         key = self.bin_key
         totp = TOTP(key, self.step, self.t0, self.digits, self.drift)
         return totp.tolerant_token(self.tolerance)
